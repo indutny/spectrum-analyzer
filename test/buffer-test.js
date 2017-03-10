@@ -24,8 +24,24 @@ describe('InputBuffer', () => {
     assert.deepEqual(buf.getData(), [ 12, 13, 14, 15 ]);
   });
 
+  it('should apply Hamming window', () => {
+    const buf = new InputBuffer(8, InputBuffer.windowFunctions.hamming);
+
+    buf.append([ 1, 1, 1, 1, 1, 1, 1, 1 ]);
+    assert.deepEqual(buf.computeWindowed(), [
+      0.08000000000000002,
+      0.25319469114498255,
+      0.6423596296199047,
+      0.9544456792351128,
+      0.9544456792351128,
+      0.6423596296199048,
+      0.25319469114498266,
+      0.08000000000000002
+    ]);
+  });
+
   it('should apply Blackman-Harris window', () => {
-    const buf = new InputBuffer(8);
+    const buf = new InputBuffer(8, InputBuffer.windowFunctions.blackmanHarris4);
 
     buf.append([ 1, 1, 1, 1, 1, 1, 1, 1 ]);
     assert.deepEqual(buf.computeWindowed(), [
