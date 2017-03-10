@@ -1,0 +1,30 @@
+{
+  "name": "spectrum-analyzer",
+  "version": "1.0.0",
+  "description": "FFT-based windowed spectrum analyzer",
+  "main": "lib/spectrum.js",
+  "scripts": {
+    "test": "mocha --reporter=spec test/*-test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/indutny/spectrum-analyzer.git"
+  },
+  "keywords": [
+    "spectrum",
+    "phase",
+    "fft"
+  ],
+  "author": "Fedor Indutny <fedor@indutny.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/indutny/spectrum-analyzer/issues"
+  },
+  "homepage": "https://github.com/indutny/spectrum-analyzer#readme",
+  "dependencies": {
+    "fft.js": "^3.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0"
+  }
+}
