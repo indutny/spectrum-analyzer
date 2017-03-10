@@ -8,18 +8,28 @@ describe('spectrum-analyzer', () => {
   it('should compute spectrum+phase of cosine wave', () => {
     const s = new Spectrum(2048);
 
-    const data = new Array(s.size);
-    for (let i = 0; i < data.length; i++)
-      data[i] = Math.cos(i / 512);
+    const cos = new Array(s.size);
+    const sin = new Array(s.size);
+    for (let i = 0; i < cos.length; i++) {
+      sin[i] = Math.sin(2 * Math.PI * i / 128);
+      cos[i] = Math.cos(2 * Math.PI * i / 128);
+    }
 
-    s.appendData(data);
+    s.appendData(cos);
     s.recompute();
 
     const power = s.getPower();
 
     let total = 0;
-    for (let i = 0; i < power.length; i++)
+    let max = 0;
+    let maxBin = 0;
+    for (let i = 0; i < power.length; i++) {
       total += power[i];
+      if (max > power[i])
+        continue;
+      max = power[i];
+      maxBin = i;
+    }
 
     let avg = 0;
     for (let i = 0; i < power.length; i++) {
@@ -27,6 +37,12 @@ describe('spectrum-analyzer', () => {
       avg += weight * i;
     }
 
-    assert.strictEqual(avg.toFixed(3), '143.128');
+    assert.strictEqual(avg.toFixed(3), '16.000');
+    assert.strictEqual(maxBin, 16);
+    assert.strictEqual(s.getPhase()[maxBin].toFixed(3), '0.000');
+
+    s.appendData(sin);
+    s.recompute();
+    assert.strictEqual(s.getPhase()[maxBin].toFixed(3), '1.000');
   });
 });
