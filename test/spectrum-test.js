@@ -43,6 +43,8 @@ describe('spectrum-analyzer', () => {
 
     s.appendData(sin);
     s.recompute();
-    assert.strictEqual(s.getPhase()[maxBin].toFixed(3), '-0.500');
+    assert.strictEqual(s.getPhase()[maxBin].toFixed(3), '0.500');
+
+    console.log(s.getPhase().join('\n'));
   });
 });
