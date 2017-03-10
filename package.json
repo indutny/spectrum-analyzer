@@ -1,6 +1,6 @@
 {
   "name": "spectrum-analyzer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "FFT-based windowed spectrum analyzer",
   "main": "lib/spectrum.js",
   "scripts": {
